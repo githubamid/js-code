@@ -35,7 +35,7 @@ spec:
     - cat
     tty: true
   - name: tools
-    image: argoproj/argo-cd-ci-builder:v0.13.1
+    image: argoproj/argocd
     command:
     - cat
     tty: true
