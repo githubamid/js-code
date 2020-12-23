@@ -72,7 +72,7 @@ spec:
       }
       steps {
         container('tools') {
-          sh "git clone https://$GIT_CREDS_USR:$GIT_CREDS_PSW@github.com/githubamid/js-deploy.git'
+          sh "git clone https://$GIT_CREDS_USR:$GIT_CREDS_PSW@github.com/githubamid/js-deploy.git"
           sh "ls -al"
           sh "git config --global user.email 'cd@cd.com'"
 
