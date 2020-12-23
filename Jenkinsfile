@@ -74,8 +74,8 @@ spec:
           sh "git config --global user.email 'cd@cd.com'"
 
           sh "ls -al"
-          sh "cd test"
-          sh "kustomize edit set image gcr.io/${PROJECT}/${APP_NAME}:${env.GIT_COMMIT}"
+          
+          sh "cd test && kustomize edit set image gcr.io/${PROJECT}/${APP_NAME}:${env.GIT_COMMIT}"
           sh "git commit -am 'Publish new version' && git push || echo 'no changes'"
         }
       }
