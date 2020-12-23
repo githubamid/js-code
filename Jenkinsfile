@@ -70,7 +70,7 @@ spec:
       steps {
         container('tools') {
           git branch: 'master', url: 'https://github.com/githubamid/js-deploy.git'
-          sh "git config --global user.email 'cd@cd.io'"
+          sh "ls -al"
 
           dir("js-deploy") {
             sh "cd ./test && kustomize edit set image gcr.io/${PROJECT}/${APP_NAME}:${env.GIT_COMMIT}"
