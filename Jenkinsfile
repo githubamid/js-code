@@ -76,7 +76,7 @@ spec:
           sh "ls -al"
 
           sh "cd test && kustomize edit set image gcr.io/${PROJECT}/${APP_NAME}:${env.GIT_COMMIT}"
-          sh "git commit -am 'Publish new version' && git push -u origin master || echo 'no changes'"
+          sh "git remote -v && git commit -am 'Publish new version' && git push -u origin master || echo 'no changes'"
         }
       }
     }
