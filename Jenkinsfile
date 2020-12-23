@@ -77,9 +77,10 @@ spec:
           sh "git config --global user.email 'cd@cd.com'"
 
           sh "printenv | sort"
-
-          sh "cd test && kustomize edit set image gcr.io/${PROJECT}/${APP_NAME}:${env.GIT_COMMIT}"
-          sh "git remote -v && git commit -am 'Publish new version' && git push -u origin master || echo 'no changes'"
+          dir("js-deploy") {
+            sh "cd test && kustomize edit set image gcr.io/${PROJECT}/${APP_NAME}:${env.GIT_COMMIT}"
+            sh "git remote -v && git commit -am 'Publish new version' && git push -u origin master || echo 'no changes'"
+          }
         }
       }
     }
