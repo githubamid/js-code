@@ -35,7 +35,7 @@ spec:
     - cat
     tty: true
   - name: tools
-    image: argoproj/argocd
+    image: argoproj/argo-cd-ci-builder:v0.12.2
     command:
     - cat
     tty: true
@@ -71,7 +71,7 @@ spec:
         container('tools') {
           git branch: 'master', url: 'https://github.com/githubamid/js-deploy.git'
           sh "ls -al"
-
+          sh "git config --global user.email 'cd@cd.com'"
           dir("js-deploy") {
             sh "cd ./test && kustomize edit set image gcr.io/${PROJECT}/${APP_NAME}:${env.GIT_COMMIT}"
             sh "git commit -am 'Publish new version' && git push || echo 'no changes'"
