@@ -67,13 +67,16 @@ spec:
       }
     }
     stage('Deploy Test') {
+      environment {
+        GIT_CREDS = credentials('git')
+      }
       steps {
         container('tools') {
-          git branch: 'master', url: 'https://github.com/githubamid/js-deploy.git'
+          sh "git clone https://$GIT_CREDS_USR:$GIT_CREDS_PSW@github.com/githubamid/js-deploy.git'
           sh "ls -al"
           sh "git config --global user.email 'cd@cd.com'"
 
-          sh "ls -al"
+          sh "printenv | sort"
 
           sh "cd test && kustomize edit set image gcr.io/${PROJECT}/${APP_NAME}:${env.GIT_COMMIT}"
           sh "git remote -v && git commit -am 'Publish new version' && git push -u origin master || echo 'no changes'"
