@@ -75,7 +75,7 @@ spec:
 
           sh "ls -al"
           sh "cd test"
-          sh "pwd && kustomize edit set image gcr.io/${PROJECT}/${APP_NAME}:${env.GIT_COMMIT}"
+          sh "pwd && kustomize edit set image demo=gcr.io/${PROJECT}/${APP_NAME}:${env.GIT_COMMIT}"
           sh "git commit -am 'Publish new version' && git push || echo 'no changes'"
         }
       }
