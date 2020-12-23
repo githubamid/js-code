@@ -72,12 +72,11 @@ spec:
           git branch: 'master', url: 'https://github.com/githubamid/js-deploy.git'
           sh "ls -al"
           sh "git config --global user.email 'cd@cd.com'"
-          dir("js-deploy") {
-            sh "ls -al"
-            sh "cd test"
-            sh "pwd && kustomize edit set image gcr.io/${PROJECT}/${APP_NAME}:${env.GIT_COMMIT}"
-            sh "git commit -am 'Publish new version' && git push || echo 'no changes'"
-          }
+
+          sh "ls -al"
+          sh "cd test"
+          sh "pwd && kustomize edit set image gcr.io/${PROJECT}/${APP_NAME}:${env.GIT_COMMIT}"
+          sh "git commit -am 'Publish new version' && git push || echo 'no changes'"
         }
       }
     }
