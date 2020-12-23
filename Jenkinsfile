@@ -69,10 +69,10 @@ spec:
     stage('Deploy Test') {
       steps {
         container('tools') {
-          sh "git clone https://github.com/githubamid/js-deploy.git"
+          git branch: 'master', url: 'https://github.com/githubamid/js-deploy.git'
           sh "git config --global user.email 'cd@cd.io'"
 
-          dir("argocd-demo-deploy") {
+          dir("js-deploy") {
             sh "cd ./test && kustomize edit set image gcr.io/${PROJECT}/${APP_NAME}:${env.GIT_COMMIT}"
             sh "git commit -am 'Publish new version' && git push || echo 'no changes'"
           }
