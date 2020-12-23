@@ -69,6 +69,7 @@ spec:
     stage('Deploy Test') {
       environment {
         GIT_CREDS = credentials('git')
+        TOKEN = credentials('token')
       }
       steps {
         container('tools') {
