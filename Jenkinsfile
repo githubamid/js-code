@@ -34,8 +34,8 @@ spec:
     command:
     - cat
     tty: true
-  - name: kubectl
-    image: gcr.io/cloud-builders/kubectl
+  - name: tools
+    image: argoproj/argo-cd-ci-builder:v0.13.1
     command:
     - cat
     tty: true
@@ -63,6 +63,19 @@ spec:
           sh """
             PYTHONUNBUFFERED=1 gcloud builds submit -t $IMAGE_TAG .
           """
+        }
+      }
+    }
+    stage('Deploy Test') {
+      steps {
+        container('tools') {
+          sh "git clone https://github.com/githubamid/js-deploy.git"
+          sh "git config --global user.email 'cd@cd.io'"
+
+          dir("argocd-demo-deploy") {
+            sh "cd ./test && kustomize edit set image gcr.io/${PROJECT}/${APP_NAME}:${env.GIT_COMMIT}"
+            sh "git commit -am 'Publish new version' && git push || echo 'no changes'"
+          }
         }
       }
     }
